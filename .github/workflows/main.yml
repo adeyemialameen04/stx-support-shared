@@ -1,4 +1,5 @@
 name: CI
+
 on:
   push:
     branches:
@@ -9,13 +10,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
+      # Set up pnpm
       - uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: 8 # Ensure you are using the desired pnpm version
+
+      # Set up Node.js environment
       - uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: 16.x # Use the same Node.js version as your local setup
           cache: "pnpm"
 
+      # List files for debugging to confirm lockfile presence
+      - run: ls -la # Check for pnpm-lock.yaml presence
+
+      # Install dependencies
       - run: pnpm install --frozen-lockfile
+
+      # Run linting and build steps
       - run: pnpm run lint && pnpm run build

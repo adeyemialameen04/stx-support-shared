@@ -24,6 +24,8 @@ jobs:
 
       # List files for debugging to confirm lockfile presence
       - run: ls -la # Check for pnpm-lock.yaml presence
+      - run: pnpm -v
+      - run: node -v
 
       # Install dependencies
       - run: pnpm install --frozen-lockfile
